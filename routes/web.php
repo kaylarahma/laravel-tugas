@@ -11,31 +11,34 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-Route::get('/', function() {
+Route::get('/', function () {
     return view('index');
 });
 
-Route::get('about', function() {
+Route::get('about', function () {
     return view('about');
 });
 
-Route::get('post', function() {
+Route::get('post', function () {
     return view('post');
 });
 
-Route::get('contact', function() {
+Route::get('contact', function () {
     return view('contact');
 });
 
-Route::prefix('admin')->group(function() {
-    Route::get('/', function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+    Route::get('/', function () {
         return view('admin.index');
     });
 });
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
