@@ -9,4 +9,8 @@ class Pengarang extends Model
 {
     use HasFactory;
     protected $fillable = ['nama_pengarang', 'email', 'tlp'];
+
+    public function Book() {
+        return $this->hasMany(Book::class, 'pengarang_id');
+    }
 }
